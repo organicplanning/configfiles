@@ -1,0 +1,144 @@
+# -*- mode: org; coding: utf-8; -*-
+#+TODO: ACTIVE | DISABLED
+
+
+* Packages
+** Melpa Stable
+#+BEGIN_SRC emacs-lisp
+(require 'package)
+(add-to-list 'package-archives
+'("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
+(package-initialize)
+#+END_SRC
+
+
+
+
+* Time
+** Start of Week
+In my geographic area, the week does start with Monday (1) and not
+Sunday (0; default):
+
+#+BEGIN_SRC emacs-lisp
+(setq calendar-week-start-day 1)
+#+END_SRC
+
+** Display Time
+#+BEGIN_SRC emacs-lisp
+(setq display-time-format "%H:%M")       
+(display-time)
+#+END_SRC
+
+* Org-Wiki
+#+BEGIN_SRC emacs-lisp
+(push "~/.emacs.d/manual/org-wiki" load-path)
+(require 'org-wiki)
+(setq org-wiki-location "~/_docs/org-wiki")
+#+END_SRC
+
+* Hotkeys
+#+BEGIN_SRC emacs-lisp
+
+(global-set-key  (kbd "<f2>") 'sublimity)
+(global-set-key  (kbd "<f3>") 'org-wiki-make-page)
+(global-set-key  (kbd "<f4>") 'org-wiki-link)
+(global-set-key  (kbd "<f5>") 'org-wiki-helm)
+(global-set-key  (kbd "<f6>") 'org-wiki-export-html-sync)
+(global-set-key  (kbd "<f7>") 'helm-org-in-buffer-headings)
+(global-set-key  (kbd "<f8>") 'org-pomodoro)
+(global-set-key  (kbd "<f9>") 'iflipb-next-buffer)
+(global-set-key  (kbd "<f10>") 'iflipb-previous-buffer)
+(global-set-key  (kbd "<f12>") 'org-agenda-list)
+#+END_SRC
+
+
+* General settings
+
+ #+BEGIN_SRC emacs-lisp
+ […]
+ #+END_SRC
+
+* DISABLED Themes
+
+ I do prefer a dark theme. Wombat did turn out pretty well for me:
+
+#+BEGIN_SRC emacs-lisp
+;;(load-theme 'wombat t)
+#+END_SRC
+
+* Font
+
+#+BEGIN_SRC emacs-lisp
+;;(set-default-font "Computer says no 24")
+(set-default-font "Computer says no 20")
+;; stupidly nonstandard pixelsize means other fonts in emacs are huge
+
+;;(set-default-font "Luculent 11 11") 
+#+END_SRC
+
+* Orgmode Settings
+** Keywords
+#+BEGIN_SRC emacs-lisp
+(setq org-todo-keywords
+           '((sequence "TODO" "IN_PROGRESS" "NOT_OK" "|" "ERSTMAL" "QUICKFIX" "OK" "DONE")
+             (sequence "CHECK" "ASK" "WFA" "|" "DERZEIT" "BASICS" "INFO" "REFERENZ" "HOWTO" "METHODE")
+             (sequence "ISSUE" "DECIDE" "SORT" "|" "ANSAGE")
+             (sequence "NEXT" "|" "CANCELED" "LATER" "SOMEDAY")))
+ #+END_SRC
+
+
+
+* Custom Colors
+** Main Frame
+#+BEGIN_SRC emacs-lisp
+(set-foreground-color "#726B43")
+(set-background-color "#2F0003")
+#+END_SRC
+
+** for 2nd frame
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'default-frame-alist '(foreground-color . "#726B43"))
+(add-to-list 'default-frame-alist '(background-color . "#2F0003"))
+#+END_SRC
+
+** for org mode levels
+differing in hue from default face, see https://www.w3schools.com/colors/colors_picker.asp
+#+BEGIN_SRC emacs-lisp
+(custom-theme-set-faces 'user
+                        '(org-level-6 ((t (:foreground "#426570"))))
+                        '(org-level-5 ((t (:foreground "#427065"))))
+                        '(org-level-4 ((t (:foreground "#42704e"))))
+                        '(org-level-3 ((t (:foreground "#4e7042"))))
+                        '(org-level-2 ((t (:foreground "#657042"))))
+                        '(org-level-1 ((t (:foreground "#705942"))))
+                        '(org-todo ((t (:foreground "#704265" :weight bold))))
+                        '(font-lock-keyword-face ((t (:foreground "#427070"))))
+                        '(link ((t (:foreground "#427070" :underline t))))
+                        '(org-date ((t (:foreground "#427070" :underline t))))
+                        '(org-done ((t (:foreground "#427042" :weight bold))))
+                        '(org-table ((t (:foreground "#707042" :weight bold))))
+                        )
+
+#+END_SRC
+
+
+
+** DISABLED hide fringes
+here, not before color change...
+#+BEGIN_SRC emacs-lisp
+;; (set-face-attribute 'fringe nil :background nil)
+#+END_SRC
+
+* Sublimity Mode
+#+BEGIN_SRC emacs-lisp
+(push "~/.emacs.d/manual/sublimity" load-path)
+(require 'sublimity)
+: (sublimity-mode 1)
+(require 'sublimity-scroll)
+: (setq sublimity-scroll-weight 12 sublimity-scroll-drift-length 8)
+;; (require 'sublimity-map)
+;; : (sublimity-map-set-delay 6)
+(require 'sublimity-attractive)
+: (sublimity-attractive-hide-fringes)
+#+END_SRC
+
